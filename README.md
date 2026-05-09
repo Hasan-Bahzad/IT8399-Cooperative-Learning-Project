@@ -1,51 +1,120 @@
-# IT8399-Cooperative-Learning-Project
-This repository contains the full design and configuration of a simulated Enterprise Network Redesign for Multi-Branch Architecture for an organization built in EVE-NG.
+# IT8399 Cooperative Learning Project
 
-The project includes 2 sites for an enterprise company and ISP. It demonstrates IPsec VPN, Active Directory Services, Routing Protocols, Security Controls and Centralized Services.
+## Enterprise Network Redesign for Multi-Branch Architecture
+
+This repository contains the full design, configuration, and documentation for a simulated **Enterprise Network Redesign for a Multi-Branch Architecture**, built using **EVE-NG**.
+
+The project includes two enterprise sites, an HQ site and a branch site, connected through an ISP network. It demonstrates key enterprise networking concepts such as **IPsec VPN**, **Active Directory services**, **OSPF routing**, **security controls**, and **centralized network services**.
 
 ---
 
-## What is included in this repository 
+## Project Overview
 
-### 1) Network Configurations
-This section includes all device configuration used in the topology
+The goal of this project is to demonstrate a real-world enterprise infrastructure using a multi-branch network design.
+
+The simulated network includes:
+
+- HQ Site
+- Branch Site
+- ISP Network
+- Centralized services
+- Secure site-to-site connectivity
+
+This project was developed as part of the **IT8399 Cooperative Learning Project** for a graduate/internship-level networking project.
+
+---
+
+## Key Features
+
+- Multi-branch enterprise network architecture
+- Site-to-site IPsec VPN connectivity
+- OSPF dynamic routing
+- Centralized services
+- Active Directory integration
+- IP addressing and subnetting plan
+- Access Control Lists for security
+- Routing and connectivity verification
+- EVE-NG-based network simulation
+
+---
+
+## Repository Contents
+
+### 1. Network Configurations
+
+This section includes the device configuration files used in the topology.
+
+Included configuration materials:
+
 - Full CLI configurations
 - Device-specific configuration files
 - Routing protocol configuration
 - IPsec VPN configuration
-- Security controls (Access Control List)
-- Verification commands (show run, show ip route)
-- Devices included:
-   - HQ Site
-   - BR Site
-   - ISP
+- Security controls using Access Control Lists
+- Verification commands such as:
+  - `show running-config`
+  - `show ip route`
+  - `show crypto ipsec sa`
+  - `ping`
+  - `traceroute`
 
-### 3) Network Design Documentation
-- **Network Topology**— Visual map of the project. 
-- IP Addressing Plan
-- Network Design Documentation
+Devices included:
 
-![Netowrk Topology](Topology.png)
+- HQ Site devices
+- Branch Site devices
+- ISP devices
 
-## Purpose
+---
 
-The goal of this project is to demonstrate real-world enterprise infrastructure with multi-branch architecture using:
-- Scalable routing protocols (OSPF)
-- Virtual Private Network Technique (IPsec VPN)
-- Centralized Services
-- IP addressing
+### 2. Network Design Documentation
 
-## How to Use This Repository 
+This section includes the design and planning documents for the project.
 
-**If you’re studying or reviewing this project:**
-1. Review the provided device configuration
-2. Compare your own setup against the configs in the Repository.
+Included documentation:
+
+- Network topology diagram
+- IP addressing plan
+- Network design documentation
+- Routing design
+- VPN design
+- Security design
+
+---
+
+## Purpose of the Project
+
+The purpose of this project is to demonstrate practical enterprise network design skills, including:
+
+- Designing scalable multi-site network architecture
+- Implementing OSPF routing
+- Configuring secure IPsec VPN tunnels
+- Planning IP addressing and subnetting
+- Applying security controls using ACLs
+- Integrating centralized services
+- Verifying network connectivity and routing behavior
+
+---
 
 ## Recommended Tools
 
-- **EVE-NG** for topology/simulation
-- Cisco CLI (IOL)  
-- Ping, traceroute, and **show/debug** commands for verification
+To review, test, or reproduce this project, the following tools are recommended:
 
-## Author
-Hasan Bahzad (202001980) a networking student at Bahrain Polytechnic
+- **EVE-NG** for network topology simulation
+- **Cisco IOSv images** for device emulation
+- **Cisco ASAv images** for device emulation
+- **Cisco CLI** for configuration and troubleshooting
+- **Ping** and **traceroute** for connectivity testing
+- **Show/debug commands** for verification
+
+---
+
+## How to Use This Repository
+
+If you are studying, reviewing, or testing this project:
+
+1. Review the network topology diagram.
+2. Read the IP addressing plan.
+3. Open the device configuration files.
+4. Compare the configurations with the documented design.
+
+---
