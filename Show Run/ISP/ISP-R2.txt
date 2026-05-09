@@ -1,0 +1,149 @@
+ISP-R2(config)#do sh run
+Building configuration...
+
+Current configuration : 1682 bytes
+!
+! Last configuration change at 14:54:08 UTC Mon Apr 20 2026
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname ISP-R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+bsd-client server url https://cloudsso.cisco.com/as/token.oauth2
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to ISP-R5
+ ip address 50.0.0.29 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to ISP-R1
+ ip address 50.0.0.22 255.255.255.252
+!
+interface Ethernet0/2
+ description Link to HQ-Edge
+ ip address 50.0.0.49 255.255.255.252
+!
+interface Ethernet0/3
+ description Link to BR-Edge
+ ip address 50.0.0.61 255.255.255.252
+!
+interface Ethernet1/0
+ description Link to ISP-R3
+ ip address 50.0.0.33 255.255.255.252
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router ospf 1
+ network 2.2.2.2 0.0.0.0 area 0
+ network 50.0.0.20 0.0.0.3 area 0
+ network 50.0.0.28 0.0.0.3 area 0
+ network 50.0.0.32 0.0.0.3 area 0
+ network 50.0.0.48 0.0.0.3 area 0
+ network 50.0.0.60 0.0.0.3 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end

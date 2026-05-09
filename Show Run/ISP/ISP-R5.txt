@@ -1,0 +1,132 @@
+ISP-R5(config)#do sh run
+Building configuration...
+
+Current configuration : 1410 bytes
+!
+! Last configuration change at 14:54:51 UTC Mon Apr 20 2026
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname ISP-R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+bsd-client server url https://cloudsso.cisco.com/as/token.oauth2
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 5.5.5.5 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to ISP-R2
+ ip address 50.0.0.30 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to ISP-R4
+ ip address 50.0.0.46 255.255.255.252
+!
+interface Ethernet0/2
+ description Link to HQ-Edge
+ ip address 50.0.0.53 255.255.255.252
+!
+interface Ethernet0/3
+ description Link to ISP-R3
+ ip address 50.0.0.42 255.255.255.252
+!
+router ospf 1
+ network 5.5.5.5 0.0.0.0 area 0
+ network 50.0.0.28 0.0.0.3 area 0
+ network 50.0.0.40 0.0.0.3 area 0
+ network 50.0.0.44 0.0.0.3 area 0
+ network 50.0.0.52 0.0.0.3 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end

@@ -1,0 +1,302 @@
+HQ-DSW2(config)#do sh run
+Building configuration...
+
+Current configuration : 7244 bytes
+!
+! Last configuration change at 20:36:49 BH Mon Apr 20 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname HQ-DSW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 9 $9$S/4UT3n/TbDgAf$NOc25B2j4Qbu4fZALjdIZ55hLC3KbjSKWyjfImLtzzw
+!
+username HQ-DSW2 privilege 15 secret 9 $9$Askaiu5.7xKknv$Njgh6ljnvNKWJDVsDsr7mOoWscRYk.Lcen96lPbwwwg
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authorization exec default group radius local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone BH 3 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name BAKGroup.com
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ description Link to HQ-CSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface Port-channel2
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ spanning-tree guard loop
+!
+interface Port-channel3
+ description Link to HQ-ASW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ spanning-tree guard root
+!
+interface Port-channel4
+ description Link to HQ-ASW3
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ spanning-tree guard root
+!
+interface Port-channel5
+ description Link to HQ-CSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface GigabitEthernet0/0
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 2 mode active
+ spanning-tree guard loop
+!
+interface GigabitEthernet0/1
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 2 mode active
+ spanning-tree guard loop
+!
+interface GigabitEthernet0/2
+ description Link to HQ-CSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 1 mode active
+!
+interface GigabitEthernet0/3
+ description Link to HQ-CSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0
+ description Link to HQ-ASW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 3 mode active
+ spanning-tree guard root
+!
+interface GigabitEthernet1/1
+ description Link to HQ-ASW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 3 mode active
+ spanning-tree guard root
+!
+interface GigabitEthernet1/2
+ description Link to HQ-ASW3
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 4 mode active
+ spanning-tree guard root
+!
+interface GigabitEthernet1/3
+ description Link to HQ-ASW3
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 4 mode active
+ spanning-tree guard root
+!
+interface GigabitEthernet2/0
+ description Link to HQ-CSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 5 mode active
+!
+interface GigabitEthernet2/1
+ description Link to HQ-CSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ channel-group 5 mode active
+!
+interface Vlan254
+ description Acting as Management Interface
+ ip address 172.17.254.14 255.255.255.0
+!
+ip default-gateway 172.17.254.254
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+!
+ip ssh time-out 90
+ip ssh authentication-retries 5
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+ip radius source-interface Vlan254
+logging source-interface Vlan254
+logging host 172.17.100.12
+!
+!
+!
+snmp-server group PRTG v3 priv
+snmp-server group BAK-Admin v3 priv
+snmp-server enable traps snmp linkdown linkup
+snmp-server host 172.17.100.14 version 3 priv PRTG
+snmp ifmib ifindex persist
+!
+!
+radius server NPS-DC01
+ address ipv4 172.17.100.13 auth-port 1812 acct-port 1813
+ key p@ssw0rd
+!
+!
+control-plane
+!
+banner exec ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+banner incoming ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+banner login ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+!
+line con 0
+line aux 0
+line vty 0 4
+ transport input ssh
+!
+ntp update-calendar
+ntp server 172.17.100.12 source Vlan254
+!
+end

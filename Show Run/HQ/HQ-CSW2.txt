@@ -1,0 +1,524 @@
+HQ-CSW2(config)#do sh run
+Building configuration...
+
+Current configuration : 17367 bytes
+!
+! Last configuration change at 21:33:29 BH Mon Apr 20 2026 by HAli
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname HQ-CSW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 9 $9$5bk86JzXVXHdKP$OOvuZmu8cFmyMAWEkHMOJWbt6IKIJyurGpTArQE987s
+!
+username HQ-CSW2 privilege 15 secret 9 $9$aCMuoNXj1OkCEP$zQZNEMRsEf0agqFINWB0/AgQYFt2jzSHUXN853jbH9U
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authorization exec default group radius local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+no process cpu extended history
+no process cpu autoprofile hog
+clock timezone BH 3 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name BAKGroup.com
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 10,20,30,40,50,99-100,254 priority 28672
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ description Link to HQ-DSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface Port-channel5
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface GigabitEthernet0/0
+ description To ASA-Inside-Switch
+ switchport access vlan 255
+ switchport mode access
+ negotiation auto
+ no cdp enable
+!
+interface GigabitEthernet0/1
+ description Link to HQ-CSW1
+ no switchport
+ ip address 172.17.0.14 255.255.255.252
+ negotiation auto
+ no cdp enable
+!
+interface GigabitEthernet0/2
+ description Link to HQ-DSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+ channel-group 1 mode active
+!
+interface GigabitEthernet0/3
+ description Link to HQ-DSW2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0
+ description Link to HQ-SerFarm1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+!
+interface GigabitEthernet1/1
+ description Link to HQ-SerFarm2
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+!
+interface GigabitEthernet1/2
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+ channel-group 5 mode active
+!
+interface GigabitEthernet1/3
+ description Link to HQ-DSW1
+ switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+ no cdp enable
+ channel-group 5 mode active
+!
+interface Vlan10
+ description Link for Sales VLAN
+ ip address 172.17.10.2 255.255.255.0
+ ip access-group IN_HQ_SALES in
+ ip helper-address 172.17.100.13
+ ip helper-address 172.17.100.14
+ glbp 10 ip 172.17.10.254
+ glbp 10 preempt
+!
+interface Vlan20
+ description Link for IT VLAN
+ ip address 172.17.20.2 255.255.255.0
+ ip access-group IN_HQ_IT in
+ ip helper-address 172.17.100.13
+ ip helper-address 172.17.100.14
+ glbp 20 ip 172.17.20.254
+ glbp 20 preempt
+!
+interface Vlan30
+ description Link for HR VLAN
+ ip address 172.17.30.2 255.255.255.0
+ ip access-group IN_HQ_HR in
+ ip helper-address 172.17.100.13
+ ip helper-address 172.17.100.14
+ glbp 30 ip 172.17.30.254
+ glbp 30 preempt
+!
+interface Vlan40
+ description Link for Purchase VLAN
+ ip address 172.17.40.2 255.255.255.0
+ ip access-group IN_HQ_PURCHASE in
+ ip helper-address 172.17.100.13
+ ip helper-address 172.17.100.14
+ glbp 40 ip 172.17.40.254
+ glbp 40 preempt
+!
+interface Vlan50
+ description Link for Accounting VLAN
+ ip address 172.17.50.2 255.255.255.0
+ ip access-group IN_HQ_ACCOUNTING in
+ ip helper-address 172.17.100.13
+ ip helper-address 172.17.100.14
+ glbp 50 ip 172.17.50.254
+ glbp 50 preempt
+!
+interface Vlan100
+ description Link for Servers Devices VLAN
+ ip address 172.17.100.2 255.255.255.0
+ ip access-group out_serverACL out
+ glbp 100 ip 172.17.100.254
+ glbp 100 preempt
+!
+interface Vlan254
+ description Link for SWManagement VLAN
+ ip address 172.17.254.2 255.255.255.0
+ glbp 254 ip 172.17.254.254
+ glbp 254 preempt
+!
+interface Vlan255
+ description ASA Inside Transit
+ ip address 172.17.255.5 255.255.255.0
+ glbp 255 ip 172.17.255.254
+ glbp 255 preempt
+!
+router ospf 10
+ router-id 1.1.2.2
+ passive-interface Vlan10
+ passive-interface Vlan20
+ passive-interface Vlan30
+ passive-interface Vlan40
+ passive-interface Vlan50
+ passive-interface Vlan100
+ passive-interface Vlan254
+ network 172.17.0.8 0.0.0.3 area 0
+ network 172.17.0.12 0.0.0.3 area 0
+ network 172.17.10.0 0.0.0.255 area 0
+ network 172.17.20.0 0.0.0.255 area 0
+ network 172.17.30.0 0.0.0.255 area 0
+ network 172.17.40.0 0.0.0.255 area 0
+ network 172.17.50.0 0.0.0.255 area 0
+ network 172.17.100.0 0.0.0.255 area 0
+ network 172.17.254.0 0.0.0.255 area 0
+ network 172.17.255.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 172.17.255.1
+ip ssh time-out 90
+ip ssh authentication-retries 5
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+ip access-list extended IN_HQ_ACCOUNTING
+ remark ==== Allow OSPF ====
+ permit ospf any any
+ remark ==== Allow GLBP ====
+ permit udp any host 224.0.0.102 eq 3222
+ remark ==== DHCP client request ====
+ permit udp any eq bootpc any eq bootps
+ remark ==== Accounting response to IT ICMP ====
+ permit icmp 172.17.50.0 0.0.0.255 172.17.20.0 0.0.0.255 echo-reply
+ remark ==== Block direct access to other HQ departments ====
+ deny   ip 172.17.50.0 0.0.0.255 172.17.10.0 0.0.0.255
+ deny   ip 172.17.50.0 0.0.0.255 172.17.20.0 0.0.0.255
+ deny   ip 172.17.50.0 0.0.0.255 172.17.30.0 0.0.0.255
+ deny   ip 172.17.50.0 0.0.0.255 172.17.40.0 0.0.0.255
+ip access-list extended IN_HQ_HR
+ remark ==== Allow OSPF ====
+ permit ospf any any
+ remark ==== Allow GLBP ====
+ permit udp any host 224.0.0.102 eq 3222
+ remark ==== DHCP client request ====
+ permit udp any eq bootpc any eq bootps
+ remark ==== HR response to IT ICMP ====
+ permit icmp 172.17.30.0 0.0.0.255 172.17.20.0 0.0.0.255 echo-reply
+ remark ==== Block direct access to other HQ departments ====
+ deny   ip 172.17.30.0 0.0.0.255 172.17.10.0 0.0.0.255
+ deny   ip 172.17.30.0 0.0.0.255 172.17.20.0 0.0.0.255
+ deny   ip 172.17.30.0 0.0.0.255 172.17.40.0 0.0.0.255
+ deny   ip 172.17.30.0 0.0.0.255 172.17.50.0 0.0.0.255
+ip access-list extended IN_HQ_IT
+ remark ==== Allow OSPF ====
+ permit ospf any any
+ remark ==== Allow GLBP ====
+ permit udp any host 224.0.0.102 eq 3222
+ remark ==== Full access inside HQ ====
+ permit ip 172.17.20.0 0.0.0.255 172.17.0.0 0.0.255.255
+ remark ==== DHCP client request ====
+ permit udp any eq bootpc any eq bootps
+ remark ==== IT full access to BR ====
+ permit ip 172.17.20.0 0.0.0.255 172.18.0.0 0.0.255.255
+ remark ==== IT internet access (lab representation) ====
+ permit icmp 172.17.20.0 0.0.0.255 host 1.1.1.1
+ip access-list extended IN_HQ_PURCHASE
+ remark ==== Allow OSPF ====
+ permit ospf any any
+ remark ==== Allow GLBP ====
+ permit udp any host 224.0.0.102 eq 3222
+ remark ==== DHCP client request ====
+ permit udp any eq bootpc any eq bootps
+ remark ==== Purchase response to IT ICMP ====
+ permit icmp 172.17.40.0 0.0.0.255 172.17.20.0 0.0.0.255 echo-reply
+ remark ==== Block direct access to other HQ departments ====
+ deny   ip 172.17.40.0 0.0.0.255 172.17.10.0 0.0.0.255
+ deny   ip 172.17.40.0 0.0.0.255 172.17.20.0 0.0.0.255
+ deny   ip 172.17.40.0 0.0.0.255 172.17.30.0 0.0.0.255
+ deny   ip 172.17.40.0 0.0.0.255 172.17.50.0 0.0.0.255
+ip access-list extended IN_HQ_SALES
+ remark ==== Allow OSPF ====
+ permit ospf any any
+ remark ==== Allow GLBP ====
+ permit udp any host 224.0.0.102 eq 3222
+ remark ==== DHCP client request ====
+ permit udp any eq bootpc any eq bootps
+ remark ==== DNS to DC01/DC02 ====
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq domain
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq domain
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq domain
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq domain
+ remark ==== AD authentication to DC01 ====
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 88
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 88
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 445
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 135
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 464
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 range 49152 65535
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 389
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 389
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 3268
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.13 eq 9389
+ remark ==== AD authentication to DC02 ====
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 88
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 88
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 445
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 135
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 464
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 range 49152 65535
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 389
+ permit udp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 389
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 3268
+ permit tcp 172.17.10.0 0.0.0.255 host 172.17.100.14 eq 9389
+ remark ==== Sales internet access (lab representation) ====
+ permit icmp 172.17.10.0 0.0.0.255 host 1.1.1.1
+ remark ==== Sales response to IT ICMP ====
+ permit icmp 172.17.10.0 0.0.0.255 172.17.20.0 0.0.0.255 echo-reply
+ remark ==== Sales response to IT TCP connections ====
+ permit tcp 172.17.10.0 0.0.0.255 172.17.20.0 0.0.0.255 established
+ remark ==== Block direct access to other HQ departments ====
+ deny   ip 172.17.10.0 0.0.0.255 172.17.20.0 0.0.0.255
+ deny   ip 172.17.10.0 0.0.0.255 172.17.30.0 0.0.0.255
+ deny   ip 172.17.10.0 0.0.0.255 172.17.40.0 0.0.0.255
+ deny   ip 172.17.10.0 0.0.0.255 172.17.50.0 0.0.0.255
+ip access-list extended out_serverACL
+ remark ==== allow DC03 full access to DC01 and DC02 for replication purposes ====
+ permit ip host 172.18.100.13 host 172.17.100.13
+ permit ip host 172.18.100.13 host 172.17.100.14
+ remark ==== allow any vlan to AD authenticate using DC01 ====
+ permit udp any host 172.17.100.13 eq domain
+ permit tcp any host 172.17.100.13 eq domain
+ permit tcp any host 172.17.100.13 eq 88
+ permit udp any host 172.17.100.13 eq 88
+ permit tcp any host 172.17.100.13 eq 445
+ permit tcp any host 172.17.100.13 eq 135
+ permit tcp any host 172.17.100.13 eq 464
+ permit tcp any host 172.17.100.13 range 49152 65535
+ permit tcp any host 172.17.100.13 eq 389
+ permit udp any host 172.17.100.13 eq 389
+ permit tcp any host 172.17.100.13 eq 3268
+ permit tcp any host 172.17.100.13 eq 9389
+ remark ==== allow any vlan to AD authenticate using DC02 ====
+ permit udp any host 172.17.100.14 eq domain
+ permit tcp any host 172.17.100.14 eq domain
+ permit tcp any host 172.17.100.14 eq 88
+ permit udp any host 172.17.100.14 eq 88
+ permit tcp any host 172.17.100.14 eq 445
+ permit tcp any host 172.17.100.14 eq 135
+ permit tcp any host 172.17.100.14 eq 464
+ permit tcp any host 172.17.100.14 range 49152 65535
+ permit tcp any host 172.17.100.14 eq 389
+ permit udp any host 172.17.100.14 eq 389
+ permit tcp any host 172.17.100.14 eq 3268
+ permit tcp any host 172.17.100.14 eq 9389
+ remark ==== allow any DHCP rely  ====
+ permit udp host 172.17.10.254 host 172.17.100.13 eq bootps
+ permit udp host 172.17.20.254 host 172.17.100.13 eq bootps
+ permit udp host 172.17.30.254 host 172.17.100.13 eq bootps
+ permit udp host 172.17.40.254 host 172.17.100.13 eq bootps
+ permit udp host 172.17.50.254 host 172.17.100.13 eq bootps
+ permit udp host 172.17.10.254 host 172.17.100.14 eq bootps
+ permit udp host 172.17.20.254 host 172.17.100.14 eq bootps
+ permit udp host 172.17.30.254 host 172.17.100.14 eq bootps
+ permit udp host 172.17.40.254 host 172.17.100.14 eq bootps
+ permit udp host 172.17.50.254 host 172.17.100.14 eq bootps
+ remark ==== allow any net device to response to the ICMP from the monitoring server ====
+ permit icmp 172.17.254.0 0.0.0.255 host 172.17.100.14
+ permit icmp host 172.17.255.1 host 172.17.100.14
+ permit icmp 172.18.254.0 0.0.0.255 host 172.17.100.14
+ remark ==== allow any net device to sends SNMP information ====
+ permit udp 172.17.254.0 0.0.0.255 eq snmp host 172.17.100.14
+ permit udp 172.17.254.0 0.0.0.255 host 172.17.100.14 eq snmptrap
+ permit udp host 172.17.255.1 eq snmp host 172.17.100.14
+ permit udp host 172.17.255.1 host 172.17.100.14 eq snmptrap
+ permit udp 172.18.254.0 0.0.0.255 eq snmp host 172.17.100.14
+ permit udp 172.18.254.0 0.0.0.255 host 172.17.100.14 eq snmptrap
+ remark ==== allow any net device to sends Syslog information ====
+ permit udp 172.17.254.0 0.0.0.255 host 172.17.100.12 eq syslog
+ permit udp host 172.17.255.1 host 172.17.100.12 eq syslog
+ permit udp 172.18.254.0 0.0.0.255 host 172.17.100.12 eq syslog
+ permit udp host 172.18.255.1 host 172.17.100.12 eq syslog
+ remark ==== allow IT to access the syslog web GUI ====
+ permit tcp 172.17.20.0 0.0.0.255 host 172.17.100.12 eq 9000
+ remark ==== allow any net device to request AAA ====
+ permit udp 172.17.254.0 0.0.0.255 host 172.17.100.13 eq 1812
+ permit udp 172.17.254.0 0.0.0.255 host 172.17.100.13 eq 1813
+ permit udp host 172.17.255.1 host 172.17.100.13 eq 1812
+ permit udp host 172.17.255.1 host 172.17.100.13 eq 1813
+ permit udp 172.18.254.0 0.0.0.255 host 172.17.100.13 eq 1812
+ permit udp 172.18.254.0 0.0.0.255 host 172.17.100.13 eq 1813
+ permit udp host 172.18.255.1 host 172.17.100.13 eq 1812
+ permit udp host 172.18.255.1 host 172.17.100.13 eq 1813
+ remark ==== allow IT full access to the server ====
+ permit ip 172.17.20.0 0.0.0.255 172.17.100.0 0.0.0.255
+ remark ==== allow NTP clients to reach NTP server ====
+ permit udp host 172.17.100.13 host 172.17.100.12 eq ntp
+ permit udp host 172.17.100.14 host 172.17.100.12 eq ntp
+ permit udp 172.17.254.0 0.0.0.255 host 172.17.100.12 eq ntp
+ permit udp host 172.17.255.1 host 172.17.100.12 eq ntp
+ permit udp host 172.18.100.13 host 172.17.100.12 eq ntp
+ permit udp 172.18.254.0 0.0.0.255 host 172.17.100.12 eq ntp
+ permit udp host 172.18.255.1 host 172.17.100.12 eq ntp
+ remark ==== allow User to response to the SSH initiated by server ====
+ permit tcp 172.17.254.0 0.0.0.255 eq 22 host 172.17.100.12
+ permit tcp host 172.17.255.1 eq 22 host 172.17.100.12
+ permit tcp 172.18.254.0 0.0.0.255 eq 22 host 172.17.100.12
+ permit tcp host 172.18.255.1 eq 22 host 172.17.100.12
+ permit ip any any
+!
+ip radius source-interface Vlan254
+no service-routing capabilities-manager
+logging origin-id hostname
+logging source-interface Vlan254
+logging host 172.17.100.12
+!
+!
+!
+snmp-server group BAK-Admin v3 priv
+snmp-server enable traps snmp linkdown linkup
+snmp-server host 172.17.100.14 version 3 priv PRTG
+snmp ifmib ifindex persist
+!
+!
+radius server NPS-DC01
+ address ipv4 172.17.100.13 auth-port 1812 acct-port 1813
+ key p@ssw0rd
+!
+!
+control-plane
+!
+banner exec ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+banner incoming ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+banner login ^CC
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+!
+line con 0
+line aux 0
+line vty 0 4
+ transport input ssh
+!
+ntp update-calendar
+ntp server 172.17.100.12 source Vlan254 version 3
+!
+end
