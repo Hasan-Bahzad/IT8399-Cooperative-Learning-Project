@@ -1,5 +1,4 @@
 # IT8399-Cooperative-Learning-Project
-# IT7099-Kalam-Telecom-Internet-Service-Provider
 This repository contains the full design and configuration of a simulated Enterprise Network Redesign for Multi-Branch Architecture for an organization built in EVE-NG.
 
 The project includes 2 sites for an enterprise company and ISP. It demonstrates IPsec VPN, Active Directory Services, Routing Protocols, Security Controls and Centralized Services.
