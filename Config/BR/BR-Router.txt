@@ -1,0 +1,23 @@
+hostname BR-Router
+
+no ip domain-lookup
+
+interface g0/0
+ description TO-HQ-ASA-PAIR
+ ip address 50.0.0.14 255.255.255.248
+ no shut
+
+interface g0/1
+ description Link to ISP Cloud
+ ip address 50.0.0.58 255.255.255.252
+ no shut
+
+interface g0/2
+ description Link to ISP Cloud
+ ip address 50.0.0.62 255.255.255.252
+ no shut
+
+router ospf 1
+ network 50.0.0.8 0.0.0.7 area 0
+ network 50.0.0.56 0.0.0.3 area 0
+ network 50.0.0.60 0.0.0.3 area 0

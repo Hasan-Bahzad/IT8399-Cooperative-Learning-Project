@@ -1,0 +1,33 @@
+hostname ISP-R3
+
+no ip domain-lookup
+
+int lo0
+ip add 3.3.3.3 255.255.255.255
+
+int e0/0
+ip add 50.0.0.34 255.255.255.252
+no shut
+description Link to ISP-R2
+
+int e0/1
+ip add 50.0.0.37 255.255.255.252
+no shut
+description Link to ISP-R4
+
+int e0/2
+ip add 50.0.0.26 255.255.255.252
+no shut
+description Link to ISP-R1
+
+int e0/3
+ip add 50.0.0.41 255.255.255.252
+no shut
+description Link to ISP-R5
+
+router ospf 1
+net 3.3.3.3 0.0.0.0 area 0
+net 50.0.0.24 0.0.0.3 area 0
+net 50.0.0.32 0.0.0.3 area 0
+net 50.0.0.36 0.0.0.3 area 0
+net 50.0.0.40 0.0.0.3 area 0

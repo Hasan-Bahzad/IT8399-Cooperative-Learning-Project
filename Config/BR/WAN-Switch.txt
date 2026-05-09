@@ -1,0 +1,10 @@
+hostname WAN-Switch
+
+vlan 256
+ name WAN-Side
+
+no ip domain-lookup
+
+int r g0/0-3
+ switchport host
+ switchport access vlan 256

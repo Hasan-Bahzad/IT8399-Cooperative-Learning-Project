@@ -1,0 +1,24 @@
+hostname HQ-Router
+
+no ip domain-lookup
+
+interface GigabitEthernet0/0
+ description Link to HQ ASAs
+ ip address 50.0.0.6 255.255.255.248
+ no shut
+
+interface GigabitEthernet0/1
+ description Link to ISP-R5
+ ip address 50.0.0.54 255.255.255.252
+ no shut
+
+interface GigabitEthernet0/2
+ description Link to ISP-R2
+ ip address 50.0.0.50 255.255.255.252
+ no shut
+
+router ospf 1
+ network 50.0.0.0 0.0.0.7 area 0
+ network 50.0.0.48 0.0.0.3 area 0
+ network 50.0.0.52 0.0.0.3 area 0
+

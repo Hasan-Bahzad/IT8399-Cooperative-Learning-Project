@@ -1,0 +1,10 @@
+hostname Inside-Switch
+
+no ip domain-lookup
+
+vlan 255
+ name ASA-Failover
+
+int r g0/0-3
+ switchport host
+ switchport access vlan 255

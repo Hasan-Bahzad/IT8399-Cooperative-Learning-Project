@@ -1,0 +1,34 @@
+hostname ISP-R1
+
+no ip domain-lookup
+
+int lo0
+ip add 1.1.1.1 255.255.255.255
+
+int e0/0
+ip add 50.0.0.17 255.255.255.252
+no shut
+description Link to ISP-R4
+
+int e0/1
+ip add 50.0.0.21 255.255.255.252
+no shut
+description Link to ISP-R2
+
+int e0/2
+ip add 50.0.0.25 255.255.255.252
+no shut
+description Link to ISP-R3
+
+int e0/3
+ip add 50.0.0.57 255.255.255.252
+no shut
+description Link to BR-Edge
+
+router ospf 1
+net 1.1.1.1 0.0.0.0 area 0
+net 50.0.0.16 0.0.0.3 area 0
+net 50.0.0.20 0.0.0.3 area 0
+net 50.0.0.24 0.0.0.3 area 0
+net 50.0.0.56 0.0.0.3 area 0
+

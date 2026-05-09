@@ -1,0 +1,183 @@
+hostname BR-ASW2
+
+no ip domain lookup
+
+vtp version 2
+vtp mode client
+vtp domain BAKGroup.com
+vtp pass BAK@Group
+
+int port-channel 1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+switchport trunk native vlan 99
+no shut
+description Link to BR-ASW1
+
+int port-channel 3
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+switchport trunk native vlan 99
+no shut
+description Link to BR-DSW1
+
+int r g0/0-1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+switchport trunk native vlan 99
+no shut
+description Link to BR-ASW1
+channel-group 1 mode active
+
+int r g1/0-1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,99,100,254,255,999
+switchport trunk native vlan 99
+no shut
+description Link to BR-DSW1
+channel-group 3 mode active
+
+int g0/2
+switchport mode access
+switchport access vlan 20
+no shut
+description Link to the IT
+switchport port-security
+switchport port-security maximum 2
+switchport port-security violation shutdown
+switchport port-security mac-address sticky
+spanning-tree portfast edge
+
+int g0/3
+switchport mode access
+switchport access vlan 50
+no shut
+description Link to the Accounting
+switchport port-security
+switchport port-security maximum 2
+switchport port-security violation shutdown
+switchport port-security mac-address sticky
+spanning-tree portfast edge
+
+int vlan 254
+ip add 172.18.254.16 255.255.255.0
+description Acting as Management Interface
+no shut
+
+ip default-gateway 172.18.254.254
+
+ip domain-name BAKGroup.com
+username BR-ASW2 privilege 15 algorithm-type scrypt secret brasw2@ssh
+
+crypto key generate rsa modulus 1024
+
+ip ssh version 2
+ip ssh time-out 90
+ip ssh authentication-retries 5
+
+banner login ^C
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+
+banner exec ^C
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+
+banner incoming ^C
+==================================================
+              BAK Group NETWORK
+              Corporate Infrastructure
+==================================================
+
+WARNING: Authorized Access Only
+
+This system is the property of BAK Group.
+Access is restricted to approved users.
+
+All activities are monitored, recorded,
+and subject to review.
+
+Unauthorized access is prohibited and
+may result in disciplinary or legal action.
+==================================================
+^C
+
+line vty 0 4
+transport input ssh
+
+enable secret brasw2@2026
+enable algorithm-type scrypt secret brasw2@2026
+
+snmp-server group BAK-Admin v3 priv
+snmp-server user PRTG BAK-Admin v3 auth sha BAK@Auth priv aes 128 BAK@Encr
+snmp-server host 172.17.100.14 version 3 priv PRTG
+snmp-server ifindex persist
+
+snmp-server enable traps snmp linkup linkdown
+
+aaa new-model
+
+aaa authentication login default group radius local
+aaa authorization exec default group radius local
+
+radius server NPS-DC01
+address ipv4 172.17.100.13 auth-port 1812 acct-port 1813
+key p@ssw0rd
+
+ip radius source-interface vlan 254
+
+logging host 172.17.100.12
+logging source-interface vlan 254
+logging trap informational
+
+int g0/2
+ spanning-tree bpduguard enable
+
+int g0/3
+ spanning-tree bpduguard enable
+
+int port-channel 1
+ spanning-tree guard loop
+
+int port-channel 3
+ spanning-tree guard loop
+
+int r g0/0-1
+ spanning-tree guard loop
+
+int r g1/0-1
+ spanning-tree guard loop

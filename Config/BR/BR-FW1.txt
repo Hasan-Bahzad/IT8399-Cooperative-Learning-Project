@@ -1,0 +1,216 @@
+password: p@ssw0rd
+
+hostname BR-FW1
+
+interface GigabitEthernet0/0
+ description INSIDE
+ nameif inside
+ security-level 100
+ ip address 172.18.255.1 255.255.255.0 standby 172.18.255.2
+ no shut
+
+interface GigabitEthernet0/1
+ description LAN Failover Interface
+ no shut
+
+interface GigabitEthernet0/2
+ description STATE Failover Interface
+ no shut
+
+interface GigabitEthernet0/3
+ description OUTSIDE
+ nameif outside
+ security-level 0
+ ip address 50.0.0.9 255.255.255.248 standby 50.0.0.10
+ no shut
+
+banner motd This system is the property of BAK Group. Access is restricted to approved users.
+
+domain-name BAKGroup.com
+
+clock timezone BAH 3
+
+object network HQ
+ subnet 172.17.0.0 255.255.0.0
+object network BR
+ subnet 172.18.0.0 255.255.0.0
+object network BR-Sales
+ subnet 172.18.10.0 255.255.255.0
+object network BR-IT
+ subnet 172.18.20.0 255.255.255.0
+object network BR-HR
+ subnet 172.18.30.0 255.255.255.0
+object network BR-Purchase
+ subnet 172.18.40.0 255.255.255.0
+object network BR-Accounting
+ subnet 172.18.50.0 255.255.255.0
+object network HQ-DC-Main-NPS
+ host 172.17.100.13
+object network HQ-DC-Backup-PRTG
+ host 172.17.100.14
+object network HQ-Syslog-NTP
+ host 172.17.100.12
+object network HQ-Sales
+ subnet 172.17.10.0 255.255.255.0
+object network HQ-IT
+ subnet 172.17.20.0 255.255.255.0
+object network HQ-HR
+ subnet 172.17.30.0 255.255.255.0
+object network HQ-Purchase
+ subnet 172.17.40.0 255.255.255.0
+object network HQ-Accounting
+ subnet 172.17.50.0 255.255.255.0
+object network BR-DC
+ host 172.18.100.13
+object network BR-Net-Dev
+ subnet 172.18.254.0 255.255.255.0
+object network BR-ASAs
+ host 172.18.255.1
+object-group network BR-LAN
+ network-object object BR-Sales
+ network-object object BR-IT
+ network-object object BR-HR
+ network-object object BR-Purchase
+ network-object object BR-Accounting
+object-group network HQ-LAN
+ network-object object HQ-Sales
+ network-object object HQ-IT
+ network-object object HQ-Purchase
+ network-object object HQ-HR
+ network-object object HQ-Accounting
+
+access-list BR-HQ-ACL extended permit ip object BR object HQ
+access-list HQ-To-BR-VPNFLTR remark ==== Allow all ICMP for testing ====
+access-list HQ-To-BR-VPNFLTR extended permit icmp object HQ object BR
+access-list HQ-To-BR-VPNFLTR remark ==== Allow HQ IT to access BR Site ====
+access-list HQ-To-BR-VPNFLTR extended permit ip object HQ-IT object BR
+access-list HQ-To-BR-VPNFLTR remark ==== Allow all communication between DCs ====
+access-list HQ-To-BR-VPNFLTR extended permit ip object HQ-DC-Main-NPS object BR-DC
+access-list HQ-To-BR-VPNFLTR extended permit ip object HQ-DC-Backup-PRTG object BR-DC
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-DC-Main allowed to response to the authenticate initiated by BR User====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq domain object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq domain object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 88 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 88 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 445 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 135 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 464 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS range 49152 65535 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq ldap object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 389 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 3268 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Main-NPS eq 9389 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-DC-Backup allowed to response to the authenticate initiated by BR User====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Backup-PRTG eq domain object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq domain object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 88 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Backup-PRTG eq 88 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 445 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 135 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 464 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG range 49152 65535 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq ldap object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Backup-PRTG eq 389 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 3268 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-DC-Backup-PRTG eq 9389 object-group BR-LAN
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-Syslog-NTP allowed to response to the BR client Syslog packets ====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-Syslog-NTP eq syslog object BR-Net-Dev
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-Syslog-NTP eq syslog object BR-ASAs
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-Syslog-NTP allowed to initiate SSH (Ansible) connection with the BR Net Devices ====
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-Syslog-NTP object BR-Net-Dev eq ssh
+access-list HQ-To-BR-VPNFLTR extended permit tcp object HQ-Syslog-NTP object BR-ASAs eq ssh
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-DC-Backup-PRTG allowed to initiate SNMP communication to the BR Net Devices (Port 161) ====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Backup-PRTG object BR-Net-Dev eq snmp
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-DC-Main-NPS allowed to response to BR NET Devices AAA requests ====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 1812 object BR-Net-Dev
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 1813 object BR-Net-Dev
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 1812 object BR-ASAs
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-DC-Main-NPS eq 1813 object BR-ASAs
+access-list HQ-To-BR-VPNFLTR remark ==== HQ-Syslog-NTP allowed to response to BR NTP requests ====
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-Syslog-NTP eq ntp object BR-Net-Dev
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-Syslog-NTP eq ntp object BR-ASAs
+access-list HQ-To-BR-VPNFLTR extended permit udp object HQ-Syslog-NTP eq ntp object BR-DC
+access-list HQ-To-BR-VPNFLTR extended deny ip any any log
+
+logging enable
+logging trap informational
+logging device-id hostname
+logging host inside 172.17.100.12
+
+failover
+failover lan unit primary
+failover lan interface FO GigabitEthernet0/1
+failover link STATE GigabitEthernet0/2
+failover interface ip FO 192.168.1.1 255.255.255.252 standby 192.168.1.2
+failover interface ip STATE 192.168.1.5 255.255.255.252 standby 192.168.1.6
+
+nat (inside,outside) source static BR BR destination static HQ HQ no-proxy-arp route-lookup
+nat (inside,outside) source dynamic BR-LAN interface
+
+router ospf 15
+ network 172.18.255.0 255.255.255.0 area 0
+ log-adj-changes
+
+route outside 0.0.0.0 0.0.0.0 50.0.0.14 1
+route inside 172.18.0.0 255.255.0.0 172.18.255.254 1
+
+aaa-server NPS-DC01 protocol radius
+
+aaa-server NPS-DC01 (inside) host 172.17.100.13
+ key p@ssw0rd
+ authentication-port 1812
+ accounting-port 1813
+ 
+aaa authentication ssh console NPS-DC01 LOCAL
+
+aaa authentication serial console NPS-DC01 LOCAL
+
+http server enable
+http 172.18.20.0 255.255.255.0 inside
+
+snmp-server group BAK-Admin v3 priv
+snmp-server user PRTG BAK-Admin v3 auth sha BAK@Auth priv aes 128 BAK@Encr
+snmp-server host inside 172.17.100.14 version 3 PRTG
+
+crypto ipsec ikev2 ipsec-proposal BR-HQ-Proposal
+ protocol esp encryption aes-256
+ protocol esp integrity sha-256
+
+crypto map BR-HQ-Map 10 match address BR-HQ-ACL
+crypto map BR-HQ-Map 10 set peer 50.0.0.1
+crypto map BR-HQ-Map 10 set ikev2 ipsec-proposal BR-HQ-Proposal
+crypto map BR-HQ-Map interface outside
+
+crypto ikev2 policy 10
+ encryption aes-256
+ integrity sha256
+ group 14
+ prf sha256
+ lifetime seconds 86400
+
+crypto ikev2 enable outside
+
+ssh version 2
+ssh key-exchange group dh-group14-sha256
+ssh 172.18.20.0 255.255.255.0 inside
+ssh 172.17.20.0 255.255.255.0 inside
+ssh 172.17.100.12 255.255.255.255 inside
+
+ntp server 172.17.100.12 source inside
+
+group-policy HQ-to-BR-P internal
+group-policy HQ-to-BR-P attributes
+ vpn-filter value HQ-To-BR-VPNFLTR
+
+username BR-FW1 password brfw1@ssh privilege 15
+
+tunnel-group 50.0.0.1 type ipsec-l2l
+tunnel-group 50.0.0.1 general-attributes
+ default-group-policy HQ-to-BR-P
+tunnel-group 50.0.0.1 ipsec-attributes
+ ikev2 remote-authentication pre-shared-key cisco123
+ ikev2 local-authentication pre-shared-key cisco123
+
+fixup protocol icmp
+
+management-access inside
