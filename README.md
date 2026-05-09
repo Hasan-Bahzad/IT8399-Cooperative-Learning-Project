@@ -39,6 +39,7 @@ This project was developed as part of the **IT8399 Cooperative Learning Project*
 ---
 
 ## Repository Contents
+**Note:** Not all project files are included in this repository due to company security and confidentiality concerns. The full configuration files, diagrams, IP addressing details, and internal documentation have been removed to protect sensitive information.
 
 ### 1. Network Configurations
 
