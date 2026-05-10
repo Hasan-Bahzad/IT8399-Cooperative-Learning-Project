@@ -80,8 +80,11 @@ Included documentation:
 - VPN design
 - Security design
 
+---
+
 ### 3. Network Topology Diagram
 ![Netowrk Topology](Topology.png)
+
 ---
 
 ## Purpose of the Project
