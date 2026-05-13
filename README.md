@@ -83,7 +83,7 @@ Included documentation:
 ---
 
 ### 3. Network Topology Diagram
-![Netowrk Topology](Topology.png)
+![Netowrk Topology](Network Topology.png)
 
 ---
 
