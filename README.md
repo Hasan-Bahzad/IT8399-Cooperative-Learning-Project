@@ -21,7 +21,7 @@ operational efficiency across both sites.
 
 ## 🗺️ Network Topology
 
-![Network Topology](Topology.png)
+![Network Topology](Documentation/Topology.png)
 
 ---
 
