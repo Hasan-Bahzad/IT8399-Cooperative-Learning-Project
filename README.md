@@ -47,33 +47,19 @@ operational efficiency across both sites.
 ```
 ├── Ansible/
 |   ├── backups/
-|   |   ├── ios
-|   |   ├── asa
-│   ├── group_vars
-│   │   ├── asa.yml
-│   │   ├── ios.yml
-│   ├── host_vars
-│   │   ├── BR-ASAs.yml
-│   │   ├── BR-CSW1.yml
-│   │   ├── BR-CSW2.yml
-│   │   ├── HQ-ASAs.yml
-│   │   ├── HQ-CSW1.yml
-│   │   ├── HQ-CSW2.yml
+│   ├── group_vars/
+│   ├── host_vars/
 │   ├── playbooks/
-│   │   ├── backup-hq.yml
-│   │   └── backup-br.yml
-│   ├── vault
-│   │   ├── secret.yml
+│   ├── vault/
 │   └── inventory.ini
 |   └── ansible.cfg
 ├── Configurations/
 │   ├── HQ/
 │   ├── Branch/
-│   ├── ISP
+│   ├── ISP/
 ├── Documentation/
-│   ├── IP-Addressing-Plan.xlsx
-│   ├── Network-Design-Document.pdf
-│   ├── VPN-Design.pdf
+│   ├── IP Address Table.pdf
+│   ├── Network Design Document.pdf
 │   └── Topology.png
 ├── Monitoring/
 │   ├── PRTG/
@@ -81,7 +67,7 @@ operational efficiency across both sites.
 ├── Show Run/
 │   ├── HQ/
 │   ├── Branch/
-│   ├── ISP
+│   ├── ISP/
 ├── Windows Server
 └── EVE-NG.uml
 
