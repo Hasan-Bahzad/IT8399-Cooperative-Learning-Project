@@ -154,15 +154,6 @@ show ip access-lists
 # SNMP
 show snmp
 show snmp community
-
-# QoS policies
-show policy-map interface
-show service-policy
-
-# Firewall (ASA)
-show conn count
-show xlate
-show asp drop
 ```
 
 ---
