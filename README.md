@@ -54,10 +54,6 @@ operational efficiency across both sites.
 │   │   ├── Routers/
 │   │   ├── Switches/
 │   │   └── Firewall/
-│   └── Servers/
-│       ├── Active-Directory/
-│       ├── Linux-Server/
-│       └── SNMP/
 ├── Ansible/
 │   ├── playbooks/
 │   │   ├── backup-routers.yml
@@ -67,8 +63,8 @@ operational efficiency across both sites.
 ├── Monitoring/
 │   ├── PRTG/
 │   └── Graylog/
-├── EVE-NG/
-│   └── Enterprise-Network.unl
+├── Windows Server
+├── EVE-NG.uml
 └── Documentation/
     ├── IP-Addressing-Plan.xlsx
     ├── Network-Design-Document.pdf
