@@ -189,7 +189,7 @@ show asp drop
 | Device Polling | SNMP |
 | Automation | Ansible |
 | Identity Management | Windows Active Directory |
-| Server OS | Linux (Ubuntu/CentOS) |
+| Server OS | Linux & Windows |
 
 ---
 
@@ -220,6 +220,6 @@ This project demonstrates:
 
 ## 👤 Author
 
-**[Your Name]**  
-Bachelor of ICT — Capstone Project  
+**Hasan Bahzad**  
+Bachelor of ICT — Networking  
 Bahrain Polytechnic
