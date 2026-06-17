@@ -1,0 +1,11 @@
+ansible_user: Ansible
+ansible_password: "{{ vault_ansible_password }}"
+
+ansible_become: false
+ansible_become_method: enable
+
+ansible_network_cli-ssh-type: paramiko
+
+ansible_command_timeout: 180
+
+backup_root: "../backups/ios"

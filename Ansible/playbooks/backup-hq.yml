@@ -1,0 +1,66 @@
+---
+- name: Back up HQ IOS devices
+  hosts: ios_hq
+  gather_facts: false
+  ignore_unreachable: true
+  vars_files:
+    - ../vault/secret.yml
+
+  tasks:
+    - name: Make sure IOS backup directory exists
+      ansible.builtin.file:
+        path: "{{ backup_root }}"
+        state: directory
+        mode: "0755"
+      delegate_to: localhost
+
+    - name: Get current date/time for IOS filename
+      ansible.builtin.set_fact:
+        backup_timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d_%H-%M-%S') }}"
+      delegate_to: localhost
+
+    - name: Collect running configuration from HQ IOS
+      cisco.ios.ios_command:
+        commands:
+          - show running-config
+      register: ios_running_config
+
+    - name: Save HQ IOS running configuration
+      ansible.builtin.copy:
+        content: "{{ ios_running_config.stdout[0] }}"
+        dest: "{{ backup_root }}/{{ hostname_for_backup }}_{{ backup_timestamp }}.cfg"
+        mode: "0644"
+      delegate_to: localhost
+
+- name: Back up HQ ASA devices
+  hosts: asa_hq
+  gather_facts: false
+  ignore_unreachable: true
+  vars_files:
+    - ../vault/secret.yml
+
+  tasks:
+    - name: Make sure ASA backup directory exists
+      ansible.builtin.file:
+        path: "{{ backup_root }}"
+        state: directory
+        mode: "0755"
+      delegate_to: localhost
+
+    - name: Get current date/time for ASA filename
+      ansible.builtin.set_fact:
+        backup_timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d_%H-%M-%S') }}"
+      delegate_to: localhost
+
+    - name: Collect running configuration from HQ ASA
+      cisco.asa.asa_command:
+        commands:
+          - show running-config
+      register: asa_running_config
+
+    - name: Save HQ ASA running configuration
+      ansible.builtin.copy:
+        content: "{{ asa_running_config.stdout[0] }}"
+        dest: "{{ backup_root }}/{{ hostname_for_backup }}_{{ backup_timestamp }}.cfg"
+        mode: "0644"
+      delegate_to: localhost

@@ -1,0 +1,2 @@
+hostname_for_backup: BR-ASAs
+ansible_become_password: "{{ asa_enable_password }}"

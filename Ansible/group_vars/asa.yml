@@ -1,0 +1,10 @@
+ansible_user: Ansible
+ansible_password: "{{ vault_ansible_password }}"
+
+ansible_become: true
+ansible_become_method: enable
+
+ansible_network_cli_ssh_type: paramiko
+ansible_ssh_common_args: '-o MACs=hmac-sha2-256'
+
+backup_root: "../backups/asa"
