@@ -111,13 +111,6 @@ Full CLI configurations for every device in the topology:
 - Firewall zone and ACL design
 - SNMP and monitoring architecture
 
-### 7. Academic Reports
-- **Project Proposal** — Scope, objectives, and background
-- **Thesis** — Full academic writeup of the project
-- **Project Charter** — Deliverables and milestones
-- **Project Plan** — Timeline and task breakdown
-- **Demonstration Slides** — PPT used for project presentation
-
 ---
 
 ## 🚀 How to Use This Repository
