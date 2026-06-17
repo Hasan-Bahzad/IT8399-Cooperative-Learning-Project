@@ -85,16 +85,14 @@ Full CLI configurations for every device in the topology:
 
 ### 2. Ansible Automation
 - Playbooks for automated backup of routers, switches, and firewalls
-- Scheduled execution with backup versioning
 - Inventory files for both HQ and branch devices
 
 ### 3. Monitoring Setup
 - **PRTG** — Sensor configuration for device availability, bandwidth, CPU/memory
 - **Graylog** — Syslog ingestion, log parsing, alerting rules, dashboards
 
-### 4. Active Directory & Servers
+### 4. Active Directory Server
 - Windows Server AD configuration with RBAC for admin/user roles
-- Linux server configuration (Ansible control node, Graylog host)
 - DNS and DHCP integration
 
 ### 5. EVE-NG Topology File
@@ -103,9 +101,9 @@ Full CLI configurations for every device in the topology:
 
 ### 6. Network Design Documentation
 - Full IP addressing plan (HQ, branch, management, VLANs)
-- VPN tunnel design and IKEv2 policy breakdown
-- Firewall zone and ACL design
-- SNMP and monitoring architecture
+- Routing protocol design covering OSPF neighborship, area design, and static route placement
+- Layer 2 security controls including port security, VLAN segmentation, and STP protection
+- Layer 3 security controls covering ACLs, VPN-Filters, and firewall traffic policies
 
 ---
 
