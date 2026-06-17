@@ -45,31 +45,47 @@ operational efficiency across both sites.
 ## 📁 Repository Structure
 
 ```
+├── Ansible/
+|   ├── backups/
+|   |   ├── ios
+|   |   ├── asa
+│   ├── group_vars
+│   │   ├── asa.yml
+│   │   ├── ios.yml
+│   ├── host_vars
+│   │   ├── BR-ASAs.yml
+│   │   ├── BR-CSW1.yml
+│   │   ├── BR-CSW2.yml
+│   │   ├── HQ-ASAs.yml
+│   │   ├── HQ-CSW1.yml
+│   │   ├── HQ-CSW2.yml
+│   ├── playbooks/
+│   │   ├── backup-hq.yml
+│   │   └── backup-br.yml
+│   ├── vault
+│   │   ├── secret.yml
+│   └── inventory.ini
+|   └── ansible.cfg
 ├── Configurations/
 │   ├── HQ/
-│   │   ├── Routers/
-│   │   ├── Switches/
-│   │   └── Firewall/
 │   ├── Branch/
-│   │   ├── Routers/
-│   │   ├── Switches/
-│   │   └── Firewall/
-├── Ansible/
-│   ├── playbooks/
-│   │   ├── backup-routers.yml
-│   │   ├── backup-switches.yml
-│   │   └── backup-firewalls.yml
-│   └── inventory/
+│   ├── ISP
+├── Documentation/
+│   ├── IP-Addressing-Plan.xlsx
+│   ├── Network-Design-Document.pdf
+│   ├── VPN-Design.pdf
+│   └── Topology.png
 ├── Monitoring/
 │   ├── PRTG/
 │   └── Graylog/
+├── Show Run/
+│   ├── HQ/
+│   ├── Branch/
+│   ├── ISP
 ├── Windows Server
 ├── EVE-NG.uml
 └── Documentation/
-    ├── IP-Addressing-Plan.xlsx
-    ├── Network-Design-Document.pdf
-    ├── VPN-Design.pdf
-    └── Topology.png
+
 ```
 
 ---
