@@ -88,8 +88,8 @@ Full CLI configurations for every device in the topology:
 - Inventory files for both HQ and branch devices
 
 ### 3. Monitoring Setup
-- **PRTG** — Sensor configuration for device availability, bandwidth, CPU/memory
-- **Graylog** — Syslog ingestion, log parsing, alerting rules, dashboards
+- **PRTG** — PRTG Installing & Configuration, Sensor configuration for device availability
+- **Graylog** — Graylog Installation & Configuration, Syslog ingestion, dashboards
 
 ### 4. Active Directory Server
 - Windows Server AD configuration with RBAC for admin/user roles
