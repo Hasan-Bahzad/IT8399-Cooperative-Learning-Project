@@ -83,8 +83,7 @@ operational efficiency across both sites.
 │   ├── Branch/
 │   ├── ISP
 ├── Windows Server
-├── EVE-NG.uml
-└── Documentation/
+└── EVE-NG.uml
 
 ```
 
