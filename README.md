@@ -38,7 +38,6 @@ operational efficiency across both sites.
 | **Automation** | Ansible playbooks for scheduled configuration backups |
 | **Identity Management** | Windows Active Directory with Role-Based Access Control (RBAC) |
 | **SNMP** | Device polling and trap collection for centralized visibility |
-| **QoS** | Traffic prioritization for business-critical applications |
 | **Simulation Platform** | EVE-NG with Cisco IOSv, ASA, Linux, and Windows Server images |
 
 ---
