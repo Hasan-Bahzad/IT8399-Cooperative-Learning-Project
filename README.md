@@ -78,39 +78,39 @@ operational efficiency across both sites.
 
 ### 1. Network Configurations
 Full CLI configurations for every device in the topology:
-- **HQ & Branch routers** — OSPF, static routes, IPsec IKEv2 VPN
-- **Layer 2/3 switches** — VLANs, inter-VLAN routing, STP
-- **Cisco ASA firewalls** — ACLs, VPN-Filters, NAT, inspection policies
-- **SNMP configuration** — Community strings, trap receivers, polling setup
+- **HQ & Branch routers** OSPF, static routes, IPsec IKEv2 VPN
+- **Layer 2/3 switches** VLANs, inter-VLAN routing, STP
+- **Cisco ASA firewalls** ACLs, VPN-Filters, NAT, inspection policies
+- **SNMP configuration** Community strings, trap receivers, polling setup
 
 ### 2. Ansible Automation
-- Playbooks for automated backup of HQ and BR
-- Inventory files for both HQ and branch devices
-- Ansible configuration file defining default settings, inventory path, and privilege escalation
-- Backup directory storing timestamped configuration snapshots for each device
-- Host variables directory containing device-specific variables such as credentials and connection settings
-- Group variables directory containing shared variables applied across device groups
-- Vault directory storing encrypted sensitive data such as passwords
+- **Playbooks** for automated backup of HQ and BR
+- **Inventory files** for both HQ and branch devices
+- **Ansible configuration** file defining default settings, inventory path, and privilege escalation
+- **Backup directory** storing timestamped configuration snapshots for each device
+- **Host variables directory** containing device-specific variables such as credentials and connection settings
+- **Group variables directory** containing shared variables applied across device groups
+- **Vault directory** storing encrypted sensitive data such as passwords
 
 ### 3. Monitoring Setup
-- **PRTG** — PRTG Installing & Configuration, Sensor configuration for device availability
-- **Graylog** — Graylog Installation & Configuration, Syslog ingestion, dashboards
+- **PRTG** Installing & Configuration, Sensor configuration for device availability
+- **Graylog** Installation & Configuration, Syslog ingestion, dashboards
 
 ### 4. Active Directory Server
-- **Active Directory Setup** — Initial domain and forest configuration including the primary Domain Controller
-- **Additional Domain Controller** — Promoting a second DC at HQ for redundancy and fault tolerance
-- **Branch Domain Controller** — Adding and configuring a dedicated DC at the new branch site for local authentication
-- **AD Sites and Services** — Site links, subnet definitions, and replication scheduling between HQ and Branch
-- **OU Structure** — Organizational Unit hierarchy covering departments, users, computers, and groups across both sites
-- **DNS** — Forward and reverse lookup zones, DNS records, and integration with Active Directory
-- **DHCP** — Scope configuration for HQ and Branch, address reservations, and DHCP options
-- **NPS** — Network Policy Server setup and RADIUS policies for network access control
+- **Active Directory Setup** Initial domain and forest configuration including the primary Domain Controller
+- **Additional Domain Controller** Promoting a second DC at HQ for redundancy and fault tolerance
+- **Branch Domain Controller** Adding and configuring a dedicated DC at the new branch site for local authentication
+- **AD Sites and Services** Site links, subnet definitions, and replication scheduling between HQ and Branch
+- **OU Structure** Organizational Unit hierarchy covering departments, users, computers, and groups across both sites
+- **DNS** Forward and reverse lookup zones, DNS records, and integration with Active Directory
+- **DHCP** Scope configuration for HQ and Branch, address reservations, and DHCP options
+- **NPS** Network Policy Server setup and RADIUS policies for network access control
 
 ### 5. Network Design Documentation
-- Full IP addressing plan (HQ, branch, management, VLANs)
-- Routing protocol design covering OSPF neighborship, area design, and static route placement
-- Layer 2 security controls including port security, VLAN segmentation, and STP protection
-- Layer 3 security controls covering ACLs, VPN-Filters, and firewall traffic policies
+- **Full IP addressing plan** (HQ, branch, management, VLANs)
+- **Routing protocol design** covering OSPF neighborship, area design, and static route placement
+- **Layer 2 security controls** including port security, VLAN segmentation, and STP protection
+- **Layer 3 security controls** covering ACLs, VPN-Filters, and firewall traffic policies
 
 ---
 
