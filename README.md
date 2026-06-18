@@ -123,7 +123,7 @@ Full CLI configurations for every device in the topology:
 
 ### Option B — Lab Reproduction
 1. Install and launch **EVE-NG** (Community or Pro).
-2. Import `Enterprise-Network.unl` into your EVE-NG lab folder.
+2. Create your own lab inside your EVE-NG.
 3. Assign the correct **Cisco IOSv**, **ASA**, **Linux**, and **Windows Server** images.
 4. Boot devices and load configs from the `Configurations/` folder.
 5. Deploy Ansible on the Linux server and run the playbooks.
