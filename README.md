@@ -79,14 +79,19 @@ operational efficiency across both sites.
 
 ### 1. Network Configurations
 Full CLI configurations for every device in the topology:
-- **HQ & Branch routers** — OSPF, static routes, IPsec IKEv2 VPN, QoS policies
+- **HQ & Branch routers** — OSPF, static routes, IPsec IKEv2 VPN
 - **Layer 2/3 switches** — VLANs, inter-VLAN routing, STP
 - **Cisco ASA firewalls** — ACLs, VPN-Filters, NAT, inspection policies
 - **SNMP configuration** — Community strings, trap receivers, polling setup
 
 ### 2. Ansible Automation
-- Playbooks for automated backup of routers, switches, and firewalls
+- Playbooks for automated backup of HQ and BR
 - Inventory files for both HQ and branch devices
+- Ansible configuration file defining default settings, inventory path, and privilege escalation
+- Backup directory storing timestamped configuration snapshots for each device
+- Host variables directory containing device-specific variables such as credentials and connection settings
+- Group variables directory containing shared variables applied across device groups
+- Vault directory storing encrypted sensitive data such as passwords
 
 ### 3. Monitoring Setup
 - **PRTG** — PRTG Installing & Configuration, Sensor configuration for device availability
