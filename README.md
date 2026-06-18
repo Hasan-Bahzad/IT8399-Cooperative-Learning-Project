@@ -187,7 +187,6 @@ This project demonstrates:
 - How **PRTG** and **Graylog** provide full-stack observability across a network
 - How **Active Directory** enforces role-based access in a Windows environment
 - How **SNMP** integrates with monitoring platforms for real-time device visibility
-- How to apply **QoS** to prioritize critical business traffic between sites
 
 ---
 
