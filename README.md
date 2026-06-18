@@ -97,14 +97,16 @@ Full CLI configurations for every device in the topology:
 - **Graylog** — Graylog Installation & Configuration, Syslog ingestion, dashboards
 
 ### 4. Active Directory Server
-- Windows Server AD configuration with RBAC for admin/user roles
-- DNS and DHCP integration
+- **Active Directory Setup** — Initial domain and forest configuration including the primary Domain Controller
+- **Additional Domain Controller** — Promoting a second DC at HQ for redundancy and fault tolerance
+- **Branch Domain Controller** — Adding and configuring a dedicated DC at the new branch site for local authentication
+- **AD Sites and Services** — Site links, subnet definitions, and replication scheduling between HQ and Branch
+- **OU Structure** — Organizational Unit hierarchy covering departments, users, computers, and groups across both sites
+- **DNS** — Forward and reverse lookup zones, DNS records, and integration with Active Directory
+- **DHCP** — Scope configuration for HQ and Branch, address reservations, and DHCP options
+- **NPS** — Network Policy Server setup and RADIUS policies for network access control
 
-### 5. EVE-NG Topology File
-- Complete `.unl` lab file — ready to import directly into EVE-NG
-- All device roles, VLANs, and links pre-configured
-
-### 6. Network Design Documentation
+### 5. Network Design Documentation
 - Full IP addressing plan (HQ, branch, management, VLANs)
 - Routing protocol design covering OSPF neighborship, area design, and static route placement
 - Layer 2 security controls including port security, VLAN segmentation, and STP protection
